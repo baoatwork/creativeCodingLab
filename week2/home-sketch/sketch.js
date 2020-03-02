@@ -1,11 +1,16 @@
 let left = 570;
-let height = -100;
 let b = true;
+let drop;
+
+
 
 function setup() {
+	drop = loadSound("drop.mp3")
 	createCanvas(windowWidth, windowHeight);
 	background(250);
 }
+
+
 
 function draw() {
 	strokeWeight(1);
@@ -32,21 +37,23 @@ function draw() {
 	circle(left + 130, 160, 10);
 	strokeWeight(0.5);
 	fill(129, 199, 212);
-	ellipse(left + 80, height, 8, 10);
-	ellipse(left + 80, height + 15, 8, 10);
-	ellipse(left + 80, height + 30, 8, 10);
+	if (b == false){
+		ellipse(left + 80, 235+frameCount%50, 8, 10);
+	}
+	
+	
 }
 
-function mousePressed() {
-	let d = dist(mouseX, mouseY, left + 130, 160);
-	if (d < 5) {
-		if (b == true) {
-			height = 235;
+function mousePressed(){
+	let d = dist(mouseX, mouseY, left + 130,160);
+	if (d <= 5){
+		if (b == true){
+			drop.loop(0,1.2);
 			b = false;
 		}else{
-			height = -100;
-			b =true;
+			b = true;
+			drop.pause();
 		}
-
 	}
+		
 }

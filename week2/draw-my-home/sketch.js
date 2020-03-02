@@ -1,7 +1,10 @@
 let b = 1;
 let height =235;
 
-
+function preload() {
+	soundFormats('mp3', 'ogg');
+	mySound = loadSound('drops');
+  }
 
 
 function setup() {
