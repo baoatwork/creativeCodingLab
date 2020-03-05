@@ -12,7 +12,7 @@ function setup(){
 
 function draw(){
     //The poster background
-    fill(28,28,28);
+    fill(8,25,45);
     rect(100,50,300,500);
     
     fill(255,255,251);
@@ -51,6 +51,7 @@ function draw(){
 
     push();
     translate(100,50);
+    tint(255,126);
     image(img,0,0,300,300);
     pop();
 }
