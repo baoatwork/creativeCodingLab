@@ -30,4 +30,4 @@
       The painting will get back to norm once the melody ends.
 
 #### Screenshot:
-   ![Screenshot Image](/resource/screenshot.png)
+   ![Screenshot Image](resource/screenshot.png)
