@@ -24,7 +24,7 @@ function setup() {
   noStroke();
 
   
-  
+  userStartAudio();
   bgm.loop(); 
 
   
