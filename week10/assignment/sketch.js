@@ -9,7 +9,7 @@ function setup() {
   drawArt();
 }
 
-function buildRandomFunction() {
+function buildRandomFunction(depth) {
   // This function should return ['x'], or ['y']
   // if depth is equal to maxDepth.
   //
@@ -17,19 +17,34 @@ function buildRandomFunction() {
   //
   // It may return any of these if depth is at least as large as minDepth, but less than maxDepth.
 
-  let randomCheck = random();
-  if (randomCheck <= 0.2){
-    return ["avg"];
-  }else if(randomCheck >= 0.8){
-    return ["prod"];
-  }else if(randomCheck >0.2 && randomCheck <= 0.4){
-    return ["dif"];
-  }else if(randomCheck >0.4 && randomCheck <= 0.6){
-    return ["x"];
-  }else{
-    return ["y"];
-  }
+  let randomCheck;
+  let calCheck;
+  let final = ["x","y"];
+  let calculate =["avg","cos","prod","sin"];
+  // if (randomCheck <= 0.2){
+  //   return ["avg"];
+  // }else if(randomCheck >= 0.8){
+  //   return ["prod"];
+  // }else if(randomCheck >0.2 && randomCheck <= 0.4){
+  //   return ["dif"];
+  // }else if(randomCheck >0.4 && randomCheck <= 0.6){
+  //   return ["x"];
+  // }else{
+  //   return ["y"];
+  // }
 
+  if (depth >= 9){
+    return [random(final)];
+  }else if (depth == 7 || depth ==8){
+    randomCheck = random();
+    if (randomCheck >0.5){
+      return [random(final)];
+    }else{
+      return [random(calculate),buildRandomFunction(depth +1),buildRandomFunction(depth+2)];
+    }
+  }else{
+    return [random(calculate),buildRandomFunction(depth +1),buildRandomFunction(depth+2)];
+  }
 }
 
 function evaluateRandomFunction(fn, x, y) {
@@ -40,20 +55,22 @@ function evaluateRandomFunction(fn, x, y) {
   }else if(fn[0] == "y"){
     return y;
   }else if(fn[0] == "avg"){
-    return 0.5*(x+y);
+    return 0.5*(evaluateRandomFunction(fn[1], x, y)+evaluateRandomFunction(fn[2], x, y));
   }else if(fn[0] == "prod"){
-    return x*y;
-  }else if(fn[0] == "dif"){
-    return 0.5*abs(x-y);
+    return evaluateRandomFunction(fn[1], x, y) * evaluateRandomFunction(fn[2], x, y);
+  }else if(fn[0] == "cos"){
+    return cos(PI * evaluateRandomFunction(fn[1], x, y));
+  }else if(fn[0] == "sin"){
+    return sin(PI * evaluateRandomFunction(fn[2], x, y));
   }
   
   
 }
 
 function drawArt() {
-  let redFunction = buildRandomFunction();
-  let greenFunction = buildRandomFunction();
-  let blueFunction = buildRandomFunction();
+  let redFunction = buildRandomFunction(1);
+  let greenFunction = buildRandomFunction(1);
+  let blueFunction = buildRandomFunction(1);
 
   let img = createImage(xSize, ySize);  
   img.loadPixels();
@@ -69,4 +86,5 @@ function drawArt() {
   }
   img.updatePixels();
   image(img, 0, 0, width, height);
+  
 }
